@@ -824,6 +824,8 @@ BUILTIN(__nvvm_isspacep_global, "bvC*", "nc")
 BUILTIN(__nvvm_isspacep_local, "bvC*", "nc")
 BUILTIN(__nvvm_isspacep_shared, "bvC*", "nc")
 
+BUILTIN(__nvvm_reflect, "icC*", "nc")
+
 // Builtins to support WMMA instructions on sm_70
 TARGET_BUILTIN(__hmma_m16n16k16_ld_a, "vi*iC*UiIi", "", AND(SM_70,PTX60))
 TARGET_BUILTIN(__hmma_m16n16k16_ld_b, "vi*iC*UiIi", "", AND(SM_70,PTX60))

@@ -41,7 +41,7 @@ exit:
   ret float %ret
 }
 
-declare i32 @llvm.nvvm.reflect.p0i8(i8*)
+declare i32 @llvm.nvvm.reflect(i8*)
 
 ; CHECK-LABEL: define i32 @intrinsic
 define i32 @intrinsic() {
@@ -49,7 +49,7 @@ define i32 @intrinsic() {
 ; USE_FTZ_0: ret i32 0
 ; USE_FTZ_1: ret i32 1
   %ptr = tail call i8* @llvm.nvvm.ptr.constant.to.gen.p0i8.p4i8(i8 addrspace(4)* getelementptr inbounds ([11 x i8], [11 x i8] addrspace(4)* @str, i32 0, i32 0))
-  %reflect = tail call i32 @llvm.nvvm.reflect.p0i8(i8* %ptr)
+  %reflect = tail call i32 @llvm.nvvm.reflect(i8* %ptr)
   ret i32 %reflect
 }
 
