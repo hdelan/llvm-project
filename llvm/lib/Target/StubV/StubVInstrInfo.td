@@ -101,6 +101,7 @@ let isReMaterializable = 1, isAsCheapAsAMove = 1 in
 def ADDI  : ALU_ri<0b000, "addi">;
 
 def ANDI  : ALU_ri<0b111, "andi">;
+def SRLI  : ALU_ri<0b101, "srli">;
 
 let isReMaterializable = 1, isAsCheapAsAMove = 1 in {
 def XORI  : ALU_ri<0b100, "xori">;
@@ -240,6 +241,11 @@ def SW : Instruction {
 def : Pat<(store (XLenVT GPR:$rs2), (AddrRegImm (XLenVT GPR:$rs1), simm12:$imm12)),
           (SW GPR:$rs2, GPR:$rs1, simm12:$imm12)>;
 
+def : Pat<(XLenVT (srl (XLenVT GPR:$rs1), (XLenVT GPR:$rs2))),
+          (SRL GPR:$rs1, GPR:$rs2)>;
+def : Pat<(XLenVT (srl (XLenVT GPR:$rs1), simm12:$imm12)),
+          (SRLI GPR:$rs1, simm12:$imm12)>;
+
 //===----------------------------------------------------------------------===//
 // Assembler Pseudo Instructions
 //===----------------------------------------------------------------------===//
@@ -258,6 +264,8 @@ def : InstAlias<"and $rd, $rs1, $imm12",
                 (ANDI  GPR:$rd, GPR:$rs1, simm12:$imm12)>;
 def : InstAlias<"xor $rd, $rs1, $imm12",
                 (XORI  GPR:$rd, GPR:$rs1, simm12:$imm12)>;
+def : InstAlias<"srl $rd, $rs1, $imm12",
+                (SRLI  GPR:$rd, GPR:$rs1, simm12:$imm12)>;
 
 def : InstAlias<"lw $rd, (${rs1})",
                 (LW  GPR:$rd, GPR:$rs1, 0)>;
