@@ -10,3 +10,10 @@
 # CHECK-INST-NEXT:  <MCOperand Reg:12>
 # CHECK-INST-NEXT:  <MCOperand Reg:13>>
 srl a0, a1, a2
+
+# CHECK-ENCODING: encoding: [0x13,0xd5,0x55,0x00]
+# CHECK-INST:      <MCInst #{{[0-9]+}} SRLI
+# CHECK-INST-NEXT:  <MCOperand Reg:11>
+# CHECK-INST-NEXT:  <MCOperand Reg:12>
+# CHECK-INST-NEXT:  <MCOperand Imm:5>>
+srli a0, a1, 5

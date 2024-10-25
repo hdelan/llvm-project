@@ -11,9 +11,11 @@
   ; CHECK-LABEL: foo:
   ; CHECK:       # %bb.0:
   ; CHECK-NEXT:    srl a0, a0, a1
+  ; CHECK-NEXT:    srli a0, a0, 5
   ; CHECK-NEXT:    ret
     %c = lshr i32 %a, %b
-    ret i32 %c
+    %d = lshr i32 %c, 5
+    ret i32 %d
   }
 
 ...
@@ -73,6 +75,7 @@ body:             |
     liveins: $x10, $x11
 
     renamable $x10 = SRL killed renamable $x10, killed renamable $x11
+    renamable $x10 = SRLI killed renamable $x10, 5
     $x0 = JALR $x1, 0
 
 ...
